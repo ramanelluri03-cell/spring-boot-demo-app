@@ -10,9 +10,7 @@ phases:
       - echo "Logging in to Amazon ECR..."
       - aws --version
       - docker --version
-      - echo "Repo URI: "
-      - echo $REPOSITORY_URI
-      - aws ecr describe-repositories --region us-east-1
+      - echo "Repo URI: $REPOSITORY_URI"
       - aws sts get-caller-identity
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $(echo $REPOSITORY_URI  | cut -d'/' -f1)
 
