@@ -7,12 +7,12 @@ phases:
 
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
+      - echo "Logging in to Amazon ECR..."
       - aws --version
       - docker --version
       - echo "Repo URI: $REPOSITORY_URI"
       - aws sts get-caller-identity
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REPOSITORY_URI 
+      - "aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $(echo $REPOSITORY_URI  | cut -d'/' -f1)"
 
   build:
     commands:
